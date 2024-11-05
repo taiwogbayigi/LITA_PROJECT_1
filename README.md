@@ -39,55 +39,70 @@ Data Loading: Loaded the sales dataset into SQL Server to perform more complex q
 
 Key Queries:
 - Retrieve the total sales for each product category. 
-'select Product, sum(Sales) as TotalSales
+```SQL
+select Product, sum(Sales) as TotalSales
 from SalesData
-group by Product'
+group by Product
+```
 
--- Find the number of sales transactions in each region.
+- Find the number of sales transactions in each region.
+```SQL
 select Region, count(OrderID) as Transactions
 from SalesData
-group by Region;
+group by Region
+```
 
--- find the highest-selling product by total sales value. 
+- Find the highest-selling product by total sales value. 
+```SQL
 select top 1 Product, sum(Sales) as TotalSales
 from SalesData
 group by Product
-order by TotalSales desc;
+order by TotalSales desc
+```
 
---calculate total revenue per product. 
+- Calculate total revenue per product. 
+```SQL
 select Product, sum(Sales) as TotalRevenue
 from SalesData
-group by Product;
+group by Product
+```
 
--- calculate monthly sales totals for the current year. 
+- Calculate monthly sales totals for the current year. 
+```SQL
 select datename(month, OrderDate) as month, sum(Sales) as monthlySales
 from SalesData
 where year(OrderDate) = year(getdate())
 group by datename(month, OrderDate), month(OrderDate)
 order by month(OrderDate); 
+```
 
-
--- find the top 5 customers by total purchase amount. 
+- Find the top 5 customers by total purchase amount. 
+```SQL
 select top 5 Customer_Id, sum(Sales) as TotalPurchaseAmount
 from SalesData
 group by Customer_Id
 order by TotalPurchaseAmount desc;
+```
 
--- calculate the percentage of total sales contributed by each region. 
+- Calculate the percentage of total sales contributed by each region. 
+```SQL
 select Region, 
        sum(Sales) as TotalSales,
        (sum(Sales) * 100.0 / (select sum(Sales) from SalesData)) as SalesPercentage
 from SalesData
-group by Region;
+group by Region
+```
 
---identify products with no sales in the last quarter.  
+- Identify products with no sales in the last quarter.  
+```SQL
 select Product
 from SalesData
 where OrderDate between dateadd(quarter, -1, getdate()) AND getdate()
 group by Product
-having sum(Sales) = 0;
+having sum(Sales) = 0
+```
 
-Deliverables:
+###Deliverables:
 
 SQL queries that extracted key insights based on various questions about sales performance.
 Used aggregation and filtering techniques to generate reports for decision-making.
