@@ -22,7 +22,10 @@ This project involved analyzing sales performance for a retail store to uncover 
 Pivot Tables summarizing sales by product, region, and month.
 
 
-Calculations of key metrics, including average sales and total revenue.
+
+Calculations of key metrics, including average sales per product and total revenue by region.
+
+
 
 Excel-based reports providing deeper insights into sales data.
 
