@@ -21,10 +21,12 @@ This project involved analyzing sales performance for a retail store to uncover 
 
 Pivot Tables summarizing sales by product, region, and month.
 
+<img width="545" alt="p1excel2" src="https://github.com/user-attachments/assets/c9c3ceed-05f9-4415-bc94-8a5c2164fdb5">
 
 
 Calculations of key metrics, including average sales per product and total revenue by region.
 
+<img width="291" alt="p1excel3" src="https://github.com/user-attachments/assets/7607f5c3-6d27-4f16-bb3f-0e7b0f2d87aa">
 
 
 Excel-based reports providing deeper insights into sales data.
@@ -32,16 +34,59 @@ Excel-based reports providing deeper insights into sales data.
 
 
 ### SQL Data Analysis:
+
 Data Loading: Loaded the sales dataset into SQL Server to perform more complex queries.
+
 Key Queries:
-Total sales for each product category.
-Number of sales transactions per region.
-Highest-selling products based on total sales value.
-Total revenue per product.
-Monthly sales totals for the current year.
-Top 5 customers by total purchase amount.
-Percentage of total sales by region.
-Products with no sales in the last quarter.
+- Retrieve the total sales for each product category. 
+'select Product, sum(Sales) as TotalSales
+from SalesData
+group by Product'
+
+-- Find the number of sales transactions in each region.
+select Region, count(OrderID) as Transactions
+from SalesData
+group by Region;
+
+-- find the highest-selling product by total sales value. 
+select top 1 Product, sum(Sales) as TotalSales
+from SalesData
+group by Product
+order by TotalSales desc;
+
+--calculate total revenue per product. 
+select Product, sum(Sales) as TotalRevenue
+from SalesData
+group by Product;
+
+-- calculate monthly sales totals for the current year. 
+select datename(month, OrderDate) as month, sum(Sales) as monthlySales
+from SalesData
+where year(OrderDate) = year(getdate())
+group by datename(month, OrderDate), month(OrderDate)
+order by month(OrderDate); 
+
+
+-- find the top 5 customers by total purchase amount. 
+select top 5 Customer_Id, sum(Sales) as TotalPurchaseAmount
+from SalesData
+group by Customer_Id
+order by TotalPurchaseAmount desc;
+
+-- calculate the percentage of total sales contributed by each region. 
+select Region, 
+       sum(Sales) as TotalSales,
+       (sum(Sales) * 100.0 / (select sum(Sales) from SalesData)) as SalesPercentage
+from SalesData
+group by Region;
+
+--identify products with no sales in the last quarter.  
+select Product
+from SalesData
+where OrderDate between dateadd(quarter, -1, getdate()) AND getdate()
+group by Product
+having sum(Sales) = 0;
+
 Deliverables:
 
 SQL queries that extracted key insights based on various questions about sales performance.
