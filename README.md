@@ -31,7 +31,7 @@ Calculations of key metrics, including average sales per product and total reven
 
 Excel-based reports providing deeper insights into sales data.
 
-
+<img width="652" alt="p1excel4" src="https://github.com/user-attachments/assets/f37f3ae1-f9a3-4ec1-83f1-c24d2260a5fb">
 
 ## SQL Data Analysis
 
